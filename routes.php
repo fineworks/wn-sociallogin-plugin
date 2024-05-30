@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Http\Request;
 
 // http://home.flynsarmy.com/flynsarmy/sociallogin/Google?s=/&f=/login
 Route::get(
@@ -31,22 +32,31 @@ Route::any(
     [
         'as' => 'flynsarmy_sociallogin_provider_callback',
         'middleware' => ['web'],
-        function ($provider_name) {
+        function ($provider_name, Request $request) {
             $success_redirect = Session::get('flynsarmy_sociallogin_successredirect', '/');
             $error_redirect = Session::get('flynsarmy_sociallogin_errorredirect', '/login');
+
 
             $provider_class = Flynsarmy\SocialLogin\Classes\ProviderManager::instance()
                 ->resolveProvider($provider_name);
 
             if (!$provider_class) {
+                Log::info("provider: $provider_name.");
                 return Redirect::to($error_redirect)->withErrors("Unknown login provider: $provider_name.");
             }
 
             $provider = $provider_class::instance();
 
+            
+
             try {
                 // This will contain [token => ..., email => ..., ...]
+                if($provider_name == 'Golomt') {
+                    $provider->setRequest($request);
+                } 
                 $provider_response = $provider->handleProviderCallback($provider_name);
+
+                
 
                 if (!is_array($provider_response)) {
                     return Redirect::to($error_redirect);
@@ -58,6 +68,7 @@ Route::any(
                 return Redirect::to($error_redirect)->withErrors([$e->getMessage()]);
             }
 
+            Log::info('provider_response: '.json_encode($provider_response));
             ksort($provider_response['token']);
 
             $provider_details = [

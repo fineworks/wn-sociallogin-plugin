@@ -3,6 +3,7 @@
 namespace Flynsarmy\SocialLogin\Classes;
 
 use System\Classes\PluginManager;
+use Log;
 
 class ProviderManager
 {

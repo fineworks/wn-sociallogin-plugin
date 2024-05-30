@@ -165,6 +165,11 @@ class Plugin extends PluginBase
                 'alias' => 'Facebook',
                 'description' => 'Log in with Facebook'
             ],
+            '\\Flynsarmy\\SocialLogin\\SocialLoginProviders\\Golomt' => [
+                'label' => 'Golomt',
+                'alias' => 'Golomt',
+                'description' => 'Log in with Golomt'
+            ],
         ];
     }
 }
