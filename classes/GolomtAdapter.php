@@ -44,16 +44,18 @@ class GolomtAdapter
 
                 $this->signature = $this->encodeSignature(hash("sha256", $jsonParams));
 
-                //Log::info('GolomtAdapter:authenticate: '.$this->signature);
+                Log::info('GolomtAdapter:authenticate: '.$this->signature);
                 
                 $response = $this->post(self::CHECK_URL, $requestData, $this->postHeaders(), true);
+                Log::info('GolomtAdapter:response: '.print_r($response, true));
 
                 if(isset($response['individualId'])) {
                     $this->userData = $response;
+                    return true;
                 }
             }
         }
-        
+        return true;
     }
 
     public function disconnect()

@@ -108,20 +108,34 @@ Route::any(
             // Frontend Logins
             } else {
                 // Grab the user associated with this provider. Creates or attach one if need be.
-                $user = \Flynsarmy\SocialLogin\Classes\UserManager::instance()->find(
-                    $provider_details,
-                    $user_details
-                );
-
-                // Support custom login handling
-                $result = Event::fire('flynsarmy.sociallogin.handleLogin', [
-                    $provider_details, $provider_response, $user
-                ], true);
-                if ($result) {
-                    return $result;
+                Log::info("user_detail: ".print_r($user_details->email, true));
+                if(isset($user_details->email)) {
+                    $user = \Flynsarmy\SocialLogin\Classes\UserManager::instance()->find(
+                        $provider_details,
+                        $user_details
+                    );
                 }
 
-                Auth::login($user);
+                // Support custom login handling
+                if(isset($user)) {
+                    $result = Event::fire('flynsarmy.sociallogin.handleLogin', [
+                        $provider_details, $provider_response, $user
+                    ], true);
+                    if ($result) {
+                        return $result;
+                    }
+                }
+
+                if(isset($user)) {
+                    Auth::login($user);
+                }
+
+                if($provider_name == 'Golomt') {
+                    Log::info("Redirect URL: ".print_r($provider_response['redirect'], true));
+                    if(isset($provider_response['redirect'])) {
+                        return Redirect::to($provider_response['redirect']);
+                    }
+                } 
             }
 
             return Redirect::to($success_redirect);

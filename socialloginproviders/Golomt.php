@@ -105,17 +105,12 @@ class Golomt extends SocialLoginProviderBase
                 'tab' => 'Golomt',
             ],
 
-            'providers[Golomt][client_id]' => [
-                'label' => 'Client ID',
+            'providers[Golomt][redirect]' => [
+                'label' => 'Redirect URL',
                 'type' => 'text',
                 'tab' => 'Golomt',
             ],
 
-            'providers[Golomt][client_secret]' => [
-                'label' => 'Client Secret',
-                'type' => 'text',
-                'tab' => 'Golomt',
-            ],
         ], 'primary');
     }
 
@@ -135,7 +130,12 @@ class Golomt extends SocialLoginProviderBase
      */
     public function handleProviderCallback()
     {
+        $providers = $this->settings->get('providers', []);
+
+        $redirectUrl = @$providers['Golomt']['redirect'];   
         $this->getAdapter()->authenticate($this->request);
+
+
 
         $token = $this->getAdapter()->getAccessToken();
         $profile = $this->getAdapter()->getUserProfile();
@@ -146,7 +146,8 @@ class Golomt extends SocialLoginProviderBase
 
         return [
             'token' => $token,
-            'profile' => $profile
+            'profile' => $profile,
+            'redirect' => $redirectUrl
         ];
     }
 
