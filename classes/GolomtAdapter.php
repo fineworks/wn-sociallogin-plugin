@@ -32,7 +32,7 @@ class GolomtAdapter
             
             $token = NULL;//$request->input('token', NULL);
             $token = $request->get('token');
-            if(str_start_with($token, '?token=')) {
+            if(str_starts_with($token, '?token=')) {
                 $token = substr($token, 7);
             }
 
@@ -44,7 +44,7 @@ class GolomtAdapter
                     'token' => $this->token
                 ];
 
-                $jsonParams = json_encode( $requestData );
+                $jsonParams = json_encode( $requestData );  
 
                 $this->signature = $this->encodeSignature(hash("sha256", $jsonParams));
 
