@@ -31,7 +31,7 @@ class GolomtAdapter
         if($request) {
             
             $token = NULL;//$request->input('token', NULL);
-            $token = $request->query('token');
+            $token = $request->get('token');
 
             if(isset($token))  {
                 $this->token = $token;
