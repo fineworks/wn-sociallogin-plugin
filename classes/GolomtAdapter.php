@@ -16,7 +16,8 @@ class GolomtAdapter
 
     protected $signature;
 
-    public const CHECK_URL = 'https://sp-api.golomtbank.com/api';
+    //public const CHECK_URL = 'https://sp-api.golomtbank.com/api';
+    public const CHECK_URL = 'https://sp-api.golomtbank.com/utility/miniapp/token/check?language=mn';
     public const GOLOMT_CERT_ID = 'travelsim';
     public const GOLOMT_PUBLIC_KEY = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC3OEtuke6RJ/p1mL2BOIVc0QUZrvDpKHIguZQ8rN8UuxpIZXls8yegVY5zx/W7kQbg/w0mk0r+Grwufr3PGU/k3fgflCI3jdHwXOm2K0EtMtlZBmH4bVnrRHw+y1CGdE0iGUor12rfvvu+krbPHc+ntFqx8fYvx8Gpp7ySJ/uuowIDAQAB';
 
