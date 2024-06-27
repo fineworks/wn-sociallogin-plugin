@@ -49,14 +49,14 @@ class GolomtAdapter
 
                 $this->signature = $this->encodeSignature(hash("sha256", $jsonParams));
 
-                Log::info('GolomtAdapter:Token: '.$token);
-                Log::info('GolomtAdapter:URL: '.self::CHECK_URL);
-                Log::info('GolomtAdapter:Method: POST');
-                Log::info('GolomtAdapter:Header: '.json_encode($this->postHeaders()));
-                Log::info('GolomtAdapter:Body: '.$jsonParams);
+                // Log::info('GolomtAdapter:Token: '.$token);
+                // Log::info('GolomtAdapter:URL: '.self::CHECK_URL);
+                // Log::info('GolomtAdapter:Method: POST');
+                // Log::info('GolomtAdapter:Header: '.json_encode($this->postHeaders()));
+                // Log::info('GolomtAdapter:Body: '.$jsonParams);
                 
                 $response = $this->post(self::CHECK_URL, $requestData, $this->postHeaders(), true);
-                Log::info('GolomtAdapter:response: '.print_r($response, true));
+                //Log::info('GolomtAdapter:response: '.print_r($response, true));
 
                 if(isset($response['individualId'])) {
                     $this->userData = $response;
@@ -78,6 +78,12 @@ class GolomtAdapter
 
         if($this->userData) {
             $userProfile->identifier = $this->userData['individualId'];
+            if(isset($this->userData['email'])) {
+                $userProfile->email = $this->userData['email'];
+            }
+            else {
+                $userProfile->email = 'social'.$this->userData['individualId']."@socialpay.app";
+            }
             $userProfile->email = $this->userData['email'];
             $userProfile->firstName = $this->userData['firstName'];
             $userProfile->lastName = $this->userData['lastName'];
