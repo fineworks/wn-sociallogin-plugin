@@ -34,23 +34,6 @@ class Golomt extends SocialLoginProviderBase
             $this->adapter = new \Flynsarmy\SocialLogin\Classes\GolomtAdapter([
                 'callback' => $this->callback
             ]);
-            // Instantiate adapter using the configuration from our settings page
-            // $providers = $this->settings->get('providers', []);
-
-            // $this->adapter = new \Hybridauth\Provider\Golomt([
-            //     'callback' => $this->callback,
-
-            //     'keys' => [
-            //         'id'     => @$providers['Golomt']['client_id'],
-            //         'secret' => @$providers['Golomt']['client_secret'],
-            //     ],
-
-            //     'scope' =>
-            //         'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
-
-            //     'debug_mode' => config('app.debug', false),
-            //     'debug_file' => storage_path('logs/flynsarmy.sociallogin.' . basename(__FILE__) . '.log'),
-            // ]);
         }
 
         return $this->adapter;
