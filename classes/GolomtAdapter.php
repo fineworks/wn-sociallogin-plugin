@@ -79,7 +79,7 @@ class GolomtAdapter
         if($this->userData) {
             $userProfile->identifier = $this->userData['individualId'];
             if(isset($this->userData['email'])) {
-                $userProfile->email = $this->userData['email'];
+                $userProfile->email = strtolower($this->userData['email']);
             }
             else {
                 $userProfile->email = 'social'.$this->userData['individualId']."@socialpay.app";
