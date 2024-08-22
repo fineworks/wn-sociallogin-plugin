@@ -56,7 +56,7 @@ class GolomtAdapter
                 // Log::info('GolomtAdapter:Body: '.$jsonParams);
                 
                 $response = $this->post(self::CHECK_URL, $requestData, $this->postHeaders(), true);
-                //Log::info('GolomtAdapter:response: '.print_r($response, true));
+                Log::info('GolomtAdapter:response: '.print_r($response, true));
 
                 if(isset($response['individualId'])) {
                     $this->userData = $response;

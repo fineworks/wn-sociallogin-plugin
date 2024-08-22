@@ -108,7 +108,7 @@ Route::any(
             // Frontend Logins
             } else {
                 // Grab the user associated with this provider. Creates or attach one if need be.
-                Log::info("user_detail: ".print_r($user_details->email, true));
+                //Log::info("user_detail: ".print_r($user_details->email, true));
                 if(isset($user_details->email)) {
                     $user = \Flynsarmy\SocialLogin\Classes\UserManager::instance()->find(
                         $provider_details,
