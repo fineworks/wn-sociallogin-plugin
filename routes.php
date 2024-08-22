@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Http\Request;
+use Log;
 
 // http://home.flynsarmy.com/flynsarmy/sociallogin/Google?s=/&f=/login
 Route::get(
@@ -128,6 +129,7 @@ Route::any(
 
                 if(isset($user)) {
                     Auth::login($user);
+                    Log::info('User logged in : '.$user->id);
                 }
 
                 if($provider_name == 'Golomt') {
