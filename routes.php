@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Http\Request;
-use Log;
+//use Log;
 
 // http://home.flynsarmy.com/flynsarmy/sociallogin/Google?s=/&f=/login
 Route::get(
