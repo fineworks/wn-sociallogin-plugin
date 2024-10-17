@@ -170,6 +170,11 @@ class Plugin extends PluginBase
                 'alias' => 'Golomt',
                 'description' => 'Log in with Golomt'
             ],
+            '\\Flynsarmy\\SocialLogin\\SocialLoginProviders\\Khaan' => [
+                'label' => 'Khaan',
+                'alias' => 'Khaan',
+                'description' => 'Log in with Golomt'
+            ],
         ];
     }
 }
