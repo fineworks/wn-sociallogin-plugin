@@ -16,14 +16,14 @@ class KhaanAdapter
 
     protected $signature;
 
-    public const KHAAN_URL = 'https://digipay.mn';
-    public const CODE_URL = KHAAN_URL.'/v3/superapp/oauth/code';
-    public const TOKEN_URL = KHAAN_URL.'/v3/superapp/oauth/token';
-    public const TOKEN_REFRESH_URL = KHAAN_URL.'/v3/superapp/oauth/refreshToken';
-    public const CLIENT_TOKEN_URL = KHAAN_URL.'/v1/wallet/auth/token';
-    public const USER_INFO_URL = KHAAN_URL.'/v3/superapp/user/info';
-    public const INVOICE_SAVE_URL = KHAAN_URL.'/v3/superapp/save/invoice';
-    public const INVOICE_CHECK_URL = KHAAN_URL.'/v3/superapp/check/invoice';
+    public const KHAAN_URL = 'https://doob.world:7005';
+    public const CODE_URL = self::KHAAN_URL.'/v3/superapp/oauth/code';
+    public const TOKEN_URL = self::KHAAN_URL.'/v3/superapp/oauth/token';
+    public const TOKEN_REFRESH_URL = self::KHAAN_URL.'/v3/superapp/oauth/refreshToken';
+    public const CLIENT_TOKEN_URL = self::KHAAN_URL.'/v1/wallet/auth/token';
+    public const USER_INFO_URL = self::KHAAN_URL.'/v3/superapp/user/info';
+    public const INVOICE_SAVE_URL = self::KHAAN_URL.'/v3/superapp/save/invoice';
+    public const INVOICE_CHECK_URL = self::KHAAN_URL.'/v3/superapp/check/invoice';
     
     public function __construct($config)
     {
