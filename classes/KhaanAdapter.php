@@ -32,32 +32,22 @@ class KhaanAdapter
 
     public function authenticate($request = NULL)
     {
+        if($request) {
+            $code = $request->get('code');
 
-        if(isset($this->config["settings"])) {
-            $settings = $this->config["settings"];
-
-            if(is_object($settings)) {
-                $providers = $settings->get('providers', []);
-
-                $client_id = $providers['Khaan']['clientId'];
-                $client_secret = $providers['Khaan']['clientSecret'];
-
-                $requestData = [
-                    "clientId" => $client_id,
-                    "redirectUrl" => "",
-                    "scope" => "scope",
-                    "userId" => "userId",
-                    "response_type" => "code"
-                ];
-
-                $response = $this->post(self::CODE_URL, $requestData, [], true);
-                Log::info('KhaanAdapter:response: '.print_r($response, true));
-
-                if(isset($response["siteUrl"])) {
-
+            if(isset($this->config["settings"])) {
+                $settings = $this->config["settings"];
+    
+                if(is_object($settings)) {
+                    $providers = $settings->get('providers', []);
+    
+                    $client_id = $providers['Khaan']['clientId'];
+                    $client_secret = $providers['Khaan']['clientSecret'];
+                    $redirect_url = $providers['Khaan']['redirect'];
+                    
                     $requestData = [
                         "code" => $code,
-                        "redirect_uri" => "",
+                        "redirect_uri" => $redirect_url,
                         "client_id" => $client_id,
                         "client_secret" => $client_secret
                     ];
@@ -70,17 +60,27 @@ class KhaanAdapter
                     
                     Log::info('KhaanAdapter:token response: '.print_r($responseToken, true));
 
-                    $requestHeader = [
-                        'Authorization: Bearer '.$token
-                    ];
-                    $responseUser = $this->get(self::USER_INFO_URL, $requestHeader);
-                    Log::info('KhaanAdapter:token response: '.print_r($responseToken, true));
+                    if(isset($responseToken["access_token"])) {
+                        $this->token = $responseToken["access_token"];
 
+                        $requestHeader = [
+                            'Authorization: Bearer '.$this->token
+                        ];
 
-                    
+                        $responseUser = $this->get(self::USER_INFO_URL, $requestHeader);
+                        Log::info('KhaanAdapter: User response: '.print_r($responseUser, true));
+    
+        
+                        if(isset($responseUser)) {
+                            $this->userData = $responseUser;
+                            return true;
+                        }
+                    }
                 }
             }
+            
         }
+
         
         
 
@@ -99,17 +99,17 @@ class KhaanAdapter
         $userProfile = new Profile();
 
         if($this->userData) {
-            $userProfile->identifier = $this->userData['individualId'];
+            $userProfile->identifier = $this->userData['email'];
             if(isset($this->userData['email'])) {
                 $userProfile->email = strtolower($this->userData['email']);
             }
             else {
-                $userProfile->email = 'social'.$this->userData['individualId']."@socialpay.app";
+                $userProfile->email = 'digipay_'.(isset($this->userData['firstNameEn']) ? $this->userData['firstNameEn'] : '').'_'.(isset($this->userData['lastNameEn']) ? $this->userData['lastNameEn'] : '')."@digipay.app";
             }
             $userProfile->firstName = $this->userData['firstName'];
             $userProfile->lastName = $this->userData['lastName'];
-            $userProfile->phone = $this->userData['mobileNumber'];
-            $userProfile->photoURL = $this->userData['imgUrl'];
+            $userProfile->phone = $this->userData['phone'];
+            $userProfile->photoURL = '';
         }
 
         return $userProfile;
