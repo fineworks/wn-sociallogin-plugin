@@ -51,7 +51,7 @@ Route::any(
 
             try {
                 // This will contain [token => ..., email => ..., ...]
-                if($provider_name == 'Golomt') {
+                if($provider_name == 'Golomt' || $provider_name == 'Khaan') {
                     $provider->setRequest($request);
                 } 
                 $provider_response = $provider->handleProviderCallback($provider_name);
