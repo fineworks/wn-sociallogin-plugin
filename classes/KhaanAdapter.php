@@ -56,12 +56,11 @@ class KhaanAdapter
                         'Content-Type: application/x-www-form-urlencoded'
                     ];
 
-                    Log::info('KhaanAdapter:token request Header: '.print_r($requestHeader, true));
-                    Log::info('KhaanAdapter:token request Data: '.print_r($requestData, true));
+                    
 
                     $responseToken = $this->post(self::TOKEN_URL, $requestData, $requestHeader, true, false);
                     
-                    Log::info('KhaanAdapter:token response: '.print_r($responseToken, true));
+                    
 
                     if(isset($responseToken["access_token"])) {
                         $this->token = $responseToken["access_token"];
@@ -149,6 +148,9 @@ class KhaanAdapter
         else {
             $payload = http_build_query($param);
         }
+
+        Log::info('KhaanAdapter:token request Header: '.print_r($headers, true));
+        Log::info('KhaanAdapter:token request Data: '.print_r($payload, true));
         
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
@@ -162,6 +164,8 @@ class KhaanAdapter
 
         $response = curl_exec($curl);
         curl_close($curl);
+
+        Log::info('KhaanAdapter:token response: '.print_r($response, true));
 
         return json_decode($response, true);
     }
