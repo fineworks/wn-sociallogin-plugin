@@ -18,7 +18,7 @@ class KhaanAdapter
 
     public const KHAAN_URL = 'https://doob.world:7005';
     public const CODE_URL = self::KHAAN_URL.'/v3/superapp/oauth/code';
-    public const TOKEN_URL = self::KHAAN_URL.'/v3/superapp/oauth/token';
+    public const TOKEN_URL = self::KHAAN_URL.'/v3/superapp/oauth/token?grant_type=authorization_code';
     public const TOKEN_REFRESH_URL = self::KHAAN_URL.'/v3/superapp/oauth/refreshToken';
     public const CLIENT_TOKEN_URL = self::KHAAN_URL.'/v1/wallet/auth/token';
     public const USER_INFO_URL = self::KHAAN_URL.'/v3/superapp/user/info';
