@@ -6,6 +6,7 @@ use Backend\Widgets\Form;
 use Flynsarmy\SocialLogin\SocialLoginProviders\SocialLoginProviderBase;
 use URL;
 use Log;
+use Session;
 
 class Khaan extends SocialLoginProviderBase
 {
@@ -141,6 +142,12 @@ class Khaan extends SocialLoginProviderBase
 
         $token = $this->getAdapter()->getAccessToken();
         $profile = $this->getAdapter()->getUserProfile();
+
+        if($token) {
+            Session::put('provider.id', $this->driver);
+            Session::put('provider.token', $token);
+            Session::put('provider.saved_at', date('Y-m-d H:i:s'));
+        }
 
         // Don't cache anything or successive logins to different accounts
         // will keep logging in to the first account
