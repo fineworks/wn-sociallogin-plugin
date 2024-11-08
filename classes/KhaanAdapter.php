@@ -43,11 +43,12 @@ class KhaanAdapter
     
                     $client_id = $providers['Khaan']['clientId'];
                     $client_secret = $providers['Khaan']['clientSecret'];
-                    $redirect_url = $providers['Khaan']['redirect'];
+                    $api_url = $providers['Khaan']['apiurl'];
+                    
                     
                     $requestData = [
                         "code" => $code,
-                        "redirect_uri" => $redirect_url,
+                        "redirect_uri" => $api_url,
                         "client_id" => $client_id,
                         "client_secret" => $client_secret
                     ];
@@ -56,11 +57,7 @@ class KhaanAdapter
                         'Content-Type: application/x-www-form-urlencoded'
                     ];
 
-                    
-
                     $responseToken = $this->post(self::TOKEN_URL, $requestData, $requestHeader, true, false);
-                    
-                    
 
                     if(isset($responseToken["access_token"])) {
                         $this->token = $responseToken["access_token"];
@@ -149,9 +146,6 @@ class KhaanAdapter
             $payload = http_build_query($param);
         }
 
-        Log::info('KhaanAdapter:token request Header: '.print_r($headers, true));
-        Log::info('KhaanAdapter:token request Data: '.print_r($payload, true));
-        
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
 
@@ -164,8 +158,6 @@ class KhaanAdapter
 
         $response = curl_exec($curl);
         curl_close($curl);
-
-        Log::info('KhaanAdapter:token response: '.print_r($response, true));
 
         return json_decode($response, true);
     }

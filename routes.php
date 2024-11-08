@@ -137,6 +137,13 @@ Route::any(
                         return Redirect::to($provider_response['redirect']);
                     }
                 } 
+
+                if($provider_name == 'Khaan') {
+                    Log::info("Redirect URL: ".print_r($provider_response['redirect'], true));
+                    if(isset($provider_response['redirect'])) {
+                        return Redirect::to($provider_response['redirect']);
+                    }
+                } 
             }
 
             return Redirect::to($success_redirect);
