@@ -59,7 +59,7 @@ class KhaanAdapter
                     Log::info('KhaanAdapter:token request Header: '.print_r($requestHeader, true));
                     Log::info('KhaanAdapter:token request Data: '.print_r($requestData, true));
 
-                    $responseToken = $this->post(self::TOKEN_URL, $requestData, $requestHeader, true);
+                    $responseToken = $this->post(self::TOKEN_URL, $requestData, $requestHeader, true, false);
                     
                     Log::info('KhaanAdapter:token response: '.print_r($responseToken, true));
 
@@ -132,7 +132,7 @@ class KhaanAdapter
         ];
     }
 
-    private function post($url, $param, $headers, $return) {
+    private function post($url, $param, $headers, $return, $tojson = true) {
 
         if(!$headers) {
             $headers = [
@@ -142,7 +142,11 @@ class KhaanAdapter
 
         $curl = curl_init($url);
 
-        $payload = json_encode( $param );
+        $payload = $param;
+        if($tojson) {
+            $payload = json_encode( $param );
+        }
+        
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
 
