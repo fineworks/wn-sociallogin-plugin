@@ -130,7 +130,7 @@ class Khaan extends SocialLoginProviderBase
 
         $redirectUrl = @$providers['Khaan']['redirect'];   
         $this->getAdapter()->authenticate($this->request);
-
+        
 
 
         $token = $this->getAdapter()->getAccessToken();

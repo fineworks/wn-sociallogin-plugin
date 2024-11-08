@@ -56,6 +56,9 @@ class KhaanAdapter
                         'Content-Type: application/x-www-form-urlencoded'
                     ];
 
+                    Log::info('KhaanAdapter:token request Header: '.print_r($requestHeader, true));
+                    Log::info('KhaanAdapter:token request Data: '.print_r($requestData, true));
+
                     $responseToken = $this->post(self::TOKEN_URL, $requestData, $requestHeader, true);
                     
                     Log::info('KhaanAdapter:token response: '.print_r($responseToken, true));
