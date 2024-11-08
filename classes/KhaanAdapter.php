@@ -144,7 +144,10 @@ class KhaanAdapter
 
         $payload = $param;
         if($tojson) {
-            $payload = json_encode( $param );
+            $payload = json_encode($param);
+        }
+        else {
+            $payload = http_build_query($param);
         }
         
         curl_setopt($curl, CURLOPT_POST, 1);
