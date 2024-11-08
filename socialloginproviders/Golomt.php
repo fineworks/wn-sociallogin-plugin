@@ -6,6 +6,7 @@ use Backend\Widgets\Form;
 use Flynsarmy\SocialLogin\SocialLoginProviders\SocialLoginProviderBase;
 use URL;
 use Log;
+use Session;
 
 class Golomt extends SocialLoginProviderBase
 {
