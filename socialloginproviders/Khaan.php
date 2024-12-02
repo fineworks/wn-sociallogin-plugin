@@ -96,24 +96,6 @@ class Khaan extends SocialLoginProviderBase
                 'tab' => 'Khaan',
             ],
 
-            'providers[Khaan][apiurl]' => [
-                'label' => 'Api URL',
-                'type' => 'text',
-                'tab' => 'Khaan',
-            ],
-
-            'providers[Khaan][clientId]' => [
-                'label' => 'Client ID',
-                'type' => 'text',
-                'tab' => 'Khaan',
-            ],
-
-            'providers[Khaan][clientSecret]' => [
-                'label' => 'Client Secret',
-                'type' => 'text',
-                'tab' => 'Khaan',
-            ],
-
         ], 'primary');
     }
 
