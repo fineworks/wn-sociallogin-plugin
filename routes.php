@@ -48,7 +48,7 @@ Route::get('flynsarmy/sociallogin/{provider}/api',
             if(isset($code) && strlen($code) > 0) {
                 $adapter = $provider->getAdapter();
                 if(isset($adapter)) {
-                    $adapter->authenticateApi($code);
+                    return $adapter->authenticateApi($code);
                 }
             }
         }
