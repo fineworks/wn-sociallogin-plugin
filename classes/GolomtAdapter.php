@@ -48,12 +48,6 @@ class GolomtAdapter
                 $jsonParams = json_encode( $requestData );  
 
                 $this->signature = $this->encodeSignature(hash("sha256", $jsonParams));
-
-                // Log::info('GolomtAdapter:Token: '.$token);
-                // Log::info('GolomtAdapter:URL: '.self::CHECK_URL);
-                // Log::info('GolomtAdapter:Method: POST');
-                // Log::info('GolomtAdapter:Header: '.json_encode($this->postHeaders()));
-                // Log::info('GolomtAdapter:Body: '.$jsonParams);
                 
                 $response = $this->post(self::CHECK_URL, $requestData, $this->postHeaders(), true);
                 Log::info('GolomtAdapter:response: '.print_r($response, true));

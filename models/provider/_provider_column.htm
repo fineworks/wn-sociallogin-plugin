@@ -1,5 +1,5 @@
 <?php if ( $record->flynsarmy_sociallogin_providers->count() ): ?>
     <?php foreach ( $record->flynsarmy_sociallogin_providers as $provider ): ?>
-        <i class="fa icon-<?= in_array($provider->provider_id, ['Golomt', 'Khaan']) ? 'bank' : strtolower($provider->provider_id) ?>" data-toggle='tooltip' title="<?= $provider->provider_id ?>"></i>
+        <i class="fa icon-<?= in_array($provider->provider_id, ['Golomt', 'Khaan', 'Monpay']) ? 'bank' : strtolower($provider->provider_id) ?>" data-toggle='tooltip' title="<?= $provider->provider_id ?>"></i>
     <?php endforeach; ?>
 <?php endif;

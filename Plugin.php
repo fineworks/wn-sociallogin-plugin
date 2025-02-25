@@ -173,7 +173,12 @@ class Plugin extends PluginBase
             '\\Flynsarmy\\SocialLogin\\SocialLoginProviders\\Khaan' => [
                 'label' => 'Khaan',
                 'alias' => 'Khaan',
-                'description' => 'Log in with Golomt'
+                'description' => 'Log in with Khaan'
+            ],
+            '\\Flynsarmy\\SocialLogin\\SocialLoginProviders\\Monpay' => [
+                'label' => 'Monpay',
+                'alias' => 'Monpay',
+                'description' => 'Log in with Monpay'
             ],
         ];
     }
