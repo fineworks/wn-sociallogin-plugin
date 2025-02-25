@@ -4,6 +4,7 @@ namespace Flynsarmy\SocialLogin\Classes;
 use Hybridauth\User\Profile;
 
 use Log;
+use Response;
 
 class MonpayAdapter 
 {
@@ -61,10 +62,10 @@ class MonpayAdapter
                 $this->token = $tokenResponse['access_token'];
             }
 
-            return response()->json($tokenResponse)->withHeaders($respHeaders);
+            return Response::json($tokenResponse, 200, $respHeaders);
         }
 
-        return response()->json(['code' => 404, 'error' => 'code is required'])->withHeaders($respHeaders);
+        return Response::json(['code' => 404, 'error' => 'code is required'], 200, $respHeaders);
     }
 
     public function disconnect()
