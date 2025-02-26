@@ -8,11 +8,10 @@ use Response;
 
 class MonpayAdapter 
 {
-    const MONPAY_URL = 'https://z-wallet.monpay.mn/';
-    const TOKEN_URL = self::MONPAY_URL.'v2/oauth/token';
-    const TOKEN_REFRESH_URL = self::MONPAY_URL.'/v3/superapp/oauth/refreshToken';
-    const CLIENT_TOKEN_URL = self::MONPAY_URL.'/v1/wallet/auth/token';
-    const USER_INFO_URL = self::MONPAY_URL.'/v3/superapp/user/info';
+    const MONPAY_URL = 'https://z-wallet.monpay.mn';
+    const TOKEN_URL = self::MONPAY_URL.'/v2/oauth/token';
+    const USER_INFO_URL = self::MONPAY_URL.'/v2/api/oauth/userinfo';
+
     const INVOICE_SAVE_URL = self::MONPAY_URL.'/v3/superapp/save/invoice';
     const INVOICE_CHECK_URL = self::MONPAY_URL.'/v3/superapp/check/invoice';
 
@@ -68,6 +67,33 @@ class MonpayAdapter
         return Response::json(['code' => 404, 'error' => 'code is required'], 200, $respHeaders);
     }
 
+    public function getUserData($token)
+    {
+        $providers = $this->config['settings']->get('providers', []);
+        $corsUrl = @$providers['Monpay']['cors'];
+
+        $respHeaders = [
+            'Content-Type' => 'application/json'
+        ];
+        $respHeaders['Access-Control-Allow-Origin'] = $corsUrl;
+        $respHeaders['Access-Control-Allow-Methods'] = "GET, POST, OPTIONS, PUT, DELETE";
+        $respHeaders['Access-Control-Allow-Headers'] = "*"; 
+
+        $this->token = $token;
+
+        $headers = [
+            'Authorization' => 'Bearer '.$this->token,
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+        ];
+
+        $this->userData = $this->get(self::USER_INFO_URL, $headers);
+
+        Log::info($this->userData);
+
+        return Response::json($this->userData, 200, $respHeaders);
+    }
+
     public function disconnect()
     {
 
@@ -77,17 +103,17 @@ class MonpayAdapter
     {
         $userProfile = new Profile();
 
-        if($this->userData) {
-            $userProfile->identifier = $this->userData['email'];
-            if(isset($this->userData['email'])) {
-                $userProfile->email = strtolower($this->userData['email']);
+        if($this->userData && isset($this->userData["result"])) {
+            $userProfile->identifier = $this->userData["result"]['userId'];
+            if(isset($this->userData["result"]['userEmail'])) {
+                $userProfile->email = strtolower($this->userData["result"]['userEmail']);
             }
             else {
-                $userProfile->email = 'monpay_'.(isset($this->userData['firstNameEn']) ? $this->userData['firstNameEn'] : '').'_'.(isset($this->userData['lastNameEn']) ? $this->userData['lastNameEn'] : '')."@digipay.app";
+                $userProfile->email = 'monpay_'.$this->userData["result"]['userId']."@monpay.app";
             }
-            $userProfile->firstName = $this->userData['firstName'];
-            $userProfile->lastName = $this->userData['lastName'];
-            $userProfile->phone = $this->userData['phone'];
+            $userProfile->firstName = $this->userData["result"]['userFirstname'];
+            $userProfile->lastName = $this->userData["result"]['userLastname'];
+            $userProfile->phone = $this->userData["result"]['userPhone'];
             $userProfile->photoURL = '';
         }
 
