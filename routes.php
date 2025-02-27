@@ -99,6 +99,29 @@ Route::get('flynsarmy/sociallogin/{provider}/userinfo',
     ]
 );
 
+Route::options('flynsarmy/sociallogin/{provider}/userinfo',
+    [
+        'as' => 'flynsarmy_sociallogin_provider_userinfo',
+        'middleware' => ['web'],
+        function ($provider_name, Request $request) {
+            $provider_class = Flynsarmy\SocialLogin\Classes\ProviderManager::instance()
+                ->resolveProvider($provider_name);
+
+            if (!$provider_class) {
+                Log::info("provider: $provider_name.");
+                //return Redirect::to($error_redirect)->withErrors("Unknown login provider: $provider_name.");
+            }
+
+            $provider = $provider_class::instance();
+
+            $adapter = $provider->getAdapter();
+            if(isset($adapter)) {
+                return $adapter->getUserDataOptions();
+            }
+        }
+    ]
+);
+
 Route::any(
     'flynsarmy/sociallogin/{provider}/callback',
     [

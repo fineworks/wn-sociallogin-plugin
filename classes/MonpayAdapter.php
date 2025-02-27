@@ -94,6 +94,17 @@ class MonpayAdapter
         return Response::json($this->userData, 200, $respHeaders);
     }
 
+    public function getUserDataOptions() {
+        $respHeaders = [
+            'Content-Type' => 'application/json'
+        ];
+        $respHeaders['Access-Control-Allow-Origin'] = "*";
+        $respHeaders['Access-Control-Allow-Methods'] = "GET, POST, OPTIONS, PUT, DELETE";
+        $respHeaders['Access-Control-Allow-Headers'] = "*"; 
+
+        return Response::json(["status" => "OK"], 200, $respHeaders);
+    }
+
     public function disconnect()
     {
 
