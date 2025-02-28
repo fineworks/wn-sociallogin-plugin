@@ -61,6 +61,8 @@ class MonpayAdapter
                 $this->token = $tokenResponse['access_token'];
             }
 
+            Log::info($tokenResponse);
+
             return Response::json($tokenResponse, 200, $respHeaders);
         }
 
@@ -87,6 +89,7 @@ class MonpayAdapter
             'Accept' => 'application/json',
         ];
 
+        Log::info($headers);
         $this->userData = $this->get(self::USER_INFO_URL, $headers);
 
         Log::info($this->userData);
