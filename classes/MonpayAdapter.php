@@ -84,9 +84,9 @@ class MonpayAdapter
         $this->token = $token;
 
         $headers = [
-            'Authorization' => 'Bearer '.$this->token,
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
+            'Authorization: Bearer '.$this->token,
+            'Content-Type: application/json',
+            'Accept: application/json',
         ];
 
         Log::info($headers);
