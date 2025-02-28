@@ -80,8 +80,12 @@ Route::get('flynsarmy/sociallogin/{provider}/userinfo',
 
                     $provider_details = [
                         'provider_id' => $provider_name,
-                        'provider_token' => $token,
+                        'provider_token' => [
+                            "access_token" => $token,
+                            "token_type" => "Bearer"
+                        ]
                     ];
+
 
                     $user_details = $adapter->getUserProfile();
 
