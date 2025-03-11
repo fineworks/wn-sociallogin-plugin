@@ -8,7 +8,7 @@ use Response;
 
 class MonpayAdapter 
 {
-    const MONPAY_URL = 'https://z-wallet.monpay.mn';
+    const MONPAY_URL = 'https://wallet.monpay.mn';
     const TOKEN_URL = self::MONPAY_URL.'/v2/oauth/token';
     const USER_INFO_URL = self::MONPAY_URL.'/v2/api/oauth/userinfo';
 
@@ -56,7 +56,13 @@ class MonpayAdapter
                                     'code' => $code,
                                     'redirect_uri' => $redirectUrl
                                 ], $headers, true, false);
-
+            Log::info([
+                                    'grant_type' => 'authorization_code',
+                                    'client_id' => $clientId,
+                                    'client_secret' => $clientSecret,
+                                    'code' => $code,
+                                    'redirect_uri' => $redirectUrl
+                                ]);
             if(isset($tokenResponse['access_token'])) {
                 $this->token = $tokenResponse['access_token'];
             }
