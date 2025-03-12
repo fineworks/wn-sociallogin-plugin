@@ -133,7 +133,7 @@ class MonpayAdapter
             }
             $userProfile->firstName = $this->userData["result"]['userFirstname'];
             $userProfile->lastName = $this->userData["result"]['userLastname'];
-            $userProfile->phone = $this->userData["result"]['userPhone'];
+            $userProfile->phone = isset($this->userData["result"]['userPhone']) ? $this->userData["result"]['userPhone'] : '';
             $userProfile->photoURL = '';
         }
 
