@@ -180,6 +180,11 @@ class Plugin extends PluginBase
                 'alias' => 'Monpay',
                 'description' => 'Log in with Monpay'
             ],
+            '\\Flynsarmy\\SocialLogin\\SocialLoginProviders\\Playmobile' => [
+                'label' => 'Playmobile',
+                'alias' => 'Playmobile',
+                'description' => 'Log in with Playmobile'
+            ],
         ];
     }
 }
