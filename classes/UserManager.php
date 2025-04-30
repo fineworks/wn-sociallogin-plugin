@@ -147,6 +147,11 @@ class UserManager
         ];
 
         $user = Auth::register($new_user, true);
+
+        if($user && isset($new_user['phone'])) {
+            $user->phone = $new_user['phone'];
+            $user->save();
+        }
         $this->attachAvatar($user, $user_details);
 
         return $this->attachProvider($user, $provider_details);
