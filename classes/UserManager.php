@@ -101,10 +101,12 @@ class UserManager
      */
     public function findProvider(array $provider_details)
     {
-        return Provider::where([
-            'provider_id' => $provider_details['provider_id'],
-            'provider_token' => json_encode($provider_details['provider_token'])
-        ])->first();
+        if(isset($provider_details['provider_token']) && isset($provider_details['provider_token']['access_token'])) {
+            return Provider::where('provider_id', $provider_details['provider_id'])->where('provider_token', 'like', '%' . $provider_details['provider_token']['access_token'] . '%')->first();
+        }
+        
+        return null;
+        
     }
 
     /**
