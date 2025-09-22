@@ -13,6 +13,8 @@
         'comment_enabled_front_twitter' => 'Могут ли фронтенд пользователи логиниться через Twitter?',
         'comment_enabled_front_facebook' => 'Могут ли фронтенд пользователи логиниться через Facebook?',
         'comment_enabled_back_facebook' => 'Могут ли администраторы логиниться в бэкенде через Facebook?',
+        'comment_enabled_front_playmobile' => 'Могут ли фронтенд пользователи логиниться через PlayMobile ?',
+        'comment_enabled_back_playmobile' => 'Могут ли администраторы логиниться в бэкенде через PlayMobile ?',
         'application_name' => 'Имя приложения',
         'comment_application_name' => 'Это отображается в окне входа в Google. Обычно название вашего сайта.',
         'how_retrieve_credentials' => 'Как получить учётные данные',

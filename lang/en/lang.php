@@ -15,6 +15,8 @@
         'comment_enabled_back_facebook' => 'Can administrators log into the backend with Facebook?',
         'comment_enabled_front_golomt' => 'Can frontend users log in with Golomt Social Pay ?',
         'comment_enabled_back_golomt' => 'Can administrators log into the backend with Golomt Social Pay ?',
+        'comment_enabled_front_playmobile' => 'Can frontend users log in with PlayMobile ?',
+        'comment_enabled_back_playmobile' => 'Can administrators log into the backend with PlayMobile ?',
         'application_name' => 'Application Name',
         'comment_application_name' => 'This appears on the Google login screen. Usually your site name.',
         'how_retrieve_credentials' => 'How to retrieve your credentials',

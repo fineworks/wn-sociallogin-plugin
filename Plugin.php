@@ -69,7 +69,7 @@ class Plugin extends PluginBase
     {
         User::extend(function ($model) {
             $model->hasMany['flynsarmy_sociallogin_providers'] = ['Flynsarmy\SocialLogin\Models\Provider'];
-        });
+        }); 
 
         // Add 'Social Logins' column to users list
         UsersController::extendListColumns(function ($widget, $model) {
@@ -84,8 +84,29 @@ class Plugin extends PluginBase
                     'path'       => '~/plugins/flynsarmy/sociallogin/models/provider/_provider_column.htm',
                     'align'      => 'center',
                     'searchable' => false
+                ],
+                'phone' => [
+                    'label'      => 'Phone',
+                    'type'       => 'text',
+                    'searchable' => true,
+                    'invisible'  => false,
                 ]
             ]);
+        });
+
+        UsersController::extendFormFields(function ($form, $model, $context) {
+            if (!$model instanceof \Winter\User\Models\User) {
+                return;
+            }
+
+            if ($context == 'update' || $context == 'create') {
+                $form->addFields([
+                    'phone' => [
+                        'label'   => 'Phone',
+                        'type'    => 'text',
+                    ],
+                ]);
+            }
         });
 
         // Generate Social Login settings form
@@ -121,6 +142,13 @@ class Plugin extends PluginBase
                     'type'    => 'Flynsarmy\SocialLogin\FormWidgets\LoginProviders',
                 ],
             ], 'secondary');
+
+            $widget->addFields([
+                'phone' => [
+                    'label'   => 'Phone',
+                    'type'    => 'text',
+                ],
+            ]);
         });
 
         // Add backend login provider integration
@@ -179,6 +207,11 @@ class Plugin extends PluginBase
                 'label' => 'Monpay',
                 'alias' => 'Monpay',
                 'description' => 'Log in with Monpay'
+            ],
+            '\\Flynsarmy\\SocialLogin\\SocialLoginProviders\\Playmobile' => [
+                'label' => 'Playmobile',
+                'alias' => 'Playmobile',
+                'description' => 'Log in with Playmobile'
             ],
         ];
     }
