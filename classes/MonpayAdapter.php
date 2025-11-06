@@ -131,8 +131,8 @@ class MonpayAdapter
             else {
                 $userProfile->email = 'monpay_'.$this->userData["result"]['userId']."@monpay.app";
             }
-            $userProfile->firstName = $this->userData["result"]['userFirstname'];
-            $userProfile->lastName = $this->userData["result"]['userLastname'];
+            $userProfile->firstName = isset($this->userData["result"]['userFirstname']) ? $this->userData["result"]['userFirstname'] : ('Monpay'.$this->userData["result"]['userId']);
+            $userProfile->lastName = isset($this->userData["result"]['userLastname']) ? $this->userData["result"]['userLastname'] : ('Monpay'.$this->userData["result"]['userId']);;
             $userProfile->phone = isset($this->userData["result"]['userPhone']) ? $this->userData["result"]['userPhone'] : '';
             $userProfile->photoURL = '';
         }
